@@ -269,19 +269,19 @@ always @(dpll_state or change)
 	rx_sio_ce_d = 1'b0;
 	case(dpll_state)
 	   2'h0:
-		if(change)	dpll_next_state = 3'h0;
-		else		dpll_next_state = 3'h1;
+		if(change)	dpll_next_state = 2'h0;
+		else		dpll_next_state = 2'h1;
 	   2'h1:begin
 		rx_sio_ce_d = 1'b1;
-		if(change)	dpll_next_state = 3'h3;
-		else		dpll_next_state = 3'h2;
+		if(change)	dpll_next_state = 2'h3;
+		else		dpll_next_state = 2'h2;
 		end
 	   2'h2:
-		if(change)	dpll_next_state = 3'h0;
-		else		dpll_next_state = 3'h3;
+		if(change)	dpll_next_state = 2'h0;
+		else		dpll_next_state = 2'h3;
 	   2'h3:
-		if(change)	dpll_next_state = 3'h0;
-		else		dpll_next_state = 3'h0;
+		if(change)	dpll_next_state = 2'h0;
+		else		dpll_next_state = 2'h0;
 	endcase
    end
 

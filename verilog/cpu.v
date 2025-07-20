@@ -240,7 +240,7 @@ module cpu(
 //*************************
 // Memory Access Controller
 //*************************
-mem MEM (
+mem_if MEM_IF (
     // system signal
     .CLK(CLK), .RST(RST),
     // WISHBONE external bus signal

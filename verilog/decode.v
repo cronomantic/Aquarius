@@ -364,9 +364,9 @@ module decode(
             WB1_MULCOM1 <= ((NEXT_ID_STALL)? 1'b0 : WB_MULCOM1);
             WB2_MULCOM1 <= WB1_MULCOM1;
             MULCOM1     <= WB2_MULCOM1 | ((NEXT_ID_STALL)? 1'b0 : EX_MULCOM1);
-            WB1_MACSEL1 <= ((NEXT_ID_STALL)? 1'b0 : WB_MACSEL1);
+            WB1_MACSEL1 <= ((NEXT_ID_STALL)? 2'b0 : WB_MACSEL1);
             WB2_MACSEL1 <= WB1_MACSEL1;
-            MACSEL1     <= WB2_MACSEL1 | ((NEXT_ID_STALL)? 1'b0 : EX_MACSEL1);
+            MACSEL1     <= WB2_MACSEL1 | ((NEXT_ID_STALL)? 2'b0 : EX_MACSEL1);
         end
         
     reg [1:0] WB_MACSEL2, WB1_MACSEL2, WB2_MACSEL2, EX_MACSEL2, MACSEL2;
@@ -383,12 +383,12 @@ module decode(
         end
         else if (SLOT)
         begin
-            WB1_MULCOM2 <= ((NEXT_ID_STALL)? 1'b0 : WB_MULCOM2);
+            WB1_MULCOM2 <= ((NEXT_ID_STALL)? 8'b0 : WB_MULCOM2);
             WB2_MULCOM2 <= WB1_MULCOM2;
-            MULCOM2     <= WB2_MULCOM2 | ((NEXT_ID_STALL)? 1'b0 : EX_MULCOM2);
-            WB1_MACSEL2 <= ((NEXT_ID_STALL)? 1'b0 : WB_MACSEL2);
+            MULCOM2     <= WB2_MULCOM2 | ((NEXT_ID_STALL)? 8'b0 : EX_MULCOM2);
+            WB1_MACSEL2 <= ((NEXT_ID_STALL)? 2'b0 : WB_MACSEL2);
             WB2_MACSEL2 <= WB1_MACSEL2;
-            MACSEL2     <= WB2_MACSEL2 | ((NEXT_ID_STALL)? 1'b0 : EX_MACSEL2);
+            MACSEL2     <= WB2_MACSEL2 | ((NEXT_ID_STALL)? 2'b0 : EX_MACSEL2);
         end                                                             
 //-----------------------------------
     reg EX_RDMACH_X, RDMACH_X;
@@ -792,7 +792,7 @@ module decode(
         else if (SLOT)
         begin                                                  
             CMPCOM     <= ((NEXT_ID_STALL)? 3'b000 : EX_CMPCOM);   
-            SFTFUNC    <= ((NEXT_ID_STALL)? 3'b000 : EX_SFTFUNC);
+            SFTFUNC    <= ((NEXT_ID_STALL)? 5'b00000 : EX_SFTFUNC);
             RDSFT_Z    <= ((NEXT_ID_STALL)? 1'b0: EX_RDSFT_Z);
             T_CMPSET   <= ((NEXT_ID_STALL)? 1'b0: EX_T_CMPSET);
             T_CRYSET   <= ((NEXT_ID_STALL)? 1'b0: EX_T_CRYSET);
@@ -932,8 +932,7 @@ module decode(
             2'b00 : INSTR_STATE_SEL <= 1'b1;
             2'b01 : INSTR_STATE_SEL <= 1'b0;
             2'b10 : INSTR_STATE_SEL <= 1'b1;
-            3'b11 : INSTR_STATE_SEL <= 1'b1;
-            default : INSTR_STATE_SEL <= 1'bx;
+            2'b11 : INSTR_STATE_SEL <= 1'b1;
         endcase
     end
 

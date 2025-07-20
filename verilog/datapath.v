@@ -522,7 +522,7 @@ module datapath(
 	       7'b01111_01 : ADDSUB <= 1'b0; //ADD(DIV)
 	       7'b01111_10 : ADDSUB <= 1'b0; //ADD(DIV)
 	       7'b01111_11 : ADDSUB <= 1'b1; //SUB(DIV)
-		  7'b1????_?? : ADDSUB <= 1'b1; //SUB
+		   7'b1????_?? : ADDSUB <= 1'b1; //SUB
             default : ADDSUB <= 1'bx;
 	   endcase
     end
@@ -533,7 +533,10 @@ module datapath(
     end
     always @(ALUINX or ALUINY_EOR or ADDSUB or CRYI)
     begin //33bit operation
-        ADDSUBXY <= {1'b0,ALUINX} + ALUINY_EOR + (ADDSUB ^ CRYI);
+        if (ADDSUB == 1'b0) // ADD
+            ADDSUBXY <= {1'b0,ALUINX} + ALUINY_EOR + {32'b0, CRYI};
+        else // SUB
+            ADDSUBXY <= {1'b0,ALUINX} + ALUINY_EOR - {32'b0, CRYI};
     end
 
     //Make ALU Output

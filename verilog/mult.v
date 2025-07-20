@@ -446,7 +446,7 @@ module mult(
 
     always @(P23S or ABH or ABH2 or SIGN)
     begin
-	   PM[47:15] <= ABH2[32:0] + P23S + SIGN;
+	   PM[47:15] <= ABH2[32:0] + P23S + {31'b0, SIGN};
 	   PM[14: 0] <= ABH[14: 0];
     end
 
